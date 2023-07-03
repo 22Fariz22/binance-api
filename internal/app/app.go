@@ -1,13 +1,14 @@
 package app
 
 import (
-	"github.com/22Fariz22/binance-api/internal/config"
+	"net/http"
+
+	"github.com/22Fariz22/binance-api/config"
 	handler "github.com/22Fariz22/binance-api/internal/delivery/http"
 	"github.com/22Fariz22/binance-api/internal/usecase"
 	"github.com/22Fariz22/binance-api/pkg/logger"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"net/http"
 )
 
 type app struct {

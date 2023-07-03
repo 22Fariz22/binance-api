@@ -6,6 +6,6 @@ type Currency struct {
 }
 
 type DiffCourse struct {
-	DifCourse10  int `json:"dif_course_10"`
-	DiffCourse60 int `json:"diff_course_60"`
+	Now         float64 `json:"now"`
+	DifCourse24 float64 `json:"dif_course_24"`
 }

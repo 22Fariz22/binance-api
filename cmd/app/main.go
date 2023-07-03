@@ -1,8 +1,8 @@
-package app
+package main
 
 import (
+	"github.com/22Fariz22/binance-api/config"
 	"github.com/22Fariz22/binance-api/internal/app"
-	"github.com/22Fariz22/binance-api/internal/config"
 	"log"
 )
 

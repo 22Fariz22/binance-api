@@ -3,7 +3,7 @@ package http
 import (
 	"context"
 	"encoding/json"
-	"github.com/22Fariz22/binance-api/internal/config"
+	"github.com/22Fariz22/binance-api/config"
 	"github.com/22Fariz22/binance-api/internal/entity"
 	"github.com/22Fariz22/binance-api/internal/usecase"
 	"github.com/22Fariz22/binance-api/pkg/logger"
@@ -47,5 +47,23 @@ func (h *Handler) GetDiffCurrency(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.UC.GetAPI(ctx, &req)
+	now, diff, err := h.UC.GetAPI(ctx, h.l, &req)
+	if err != nil {
+		h.l.Error("error in handler:", err)
+		return
+	}
+
+	resp := &entity.DiffCourse{
+		Now:         now,
+		DifCourse24: diff,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	res, err := json.Marshal(resp)
+	if err != nil {
+		h.l.Info("error json.Marshal DiffCourse", err)
+	}
+
+	w.Write(res)
 }
