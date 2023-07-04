@@ -27,6 +27,7 @@ func NewHandler(UC usecase.UseCase, cfg *config.Config, l logger.Interface) *Han
 	}
 }
 
+// GetDiffCurrency принимает пару валюты
 func (h *Handler) GetDiffCurrency(w http.ResponseWriter, r *http.Request) {
 	//вытащить json данные от клиента
 	//отправить в usecase в GetAPI
@@ -47,9 +48,12 @@ func (h *Handler) GetDiffCurrency(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//отправляем в usecase пару валюты и получаем
 	now, diff, err := h.UC.GetAPI(ctx, h.l, &req)
 	if err != nil {
 		h.l.Error("error in handler:", err)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("bad request Status 400"))
 		return
 	}
 
