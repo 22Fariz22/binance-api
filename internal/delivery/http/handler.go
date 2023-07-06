@@ -67,6 +67,9 @@ func (h *Handler) GetDiffCurrency(w http.ResponseWriter, r *http.Request) {
 	res, err := json.Marshal(resp)
 	if err != nil {
 		h.l.Info("error json.Marshal DiffCourse", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Status Internal Server Error 500"))
+		return
 	}
 
 	w.Write(res)
